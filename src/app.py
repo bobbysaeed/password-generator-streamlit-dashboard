@@ -22,4 +22,15 @@ elif options == 'RandomPasswordGenerator':
         include_symbols = st.text_input('include_symbols')
     generator = RandomPasswordGenerator(length, include_numbers, include_symbols)
     st.write(generator.generate())
-
+else:
+    no_of_words = st.slider('Number of Words', 0, 7, 5)
+    separator = st.text_input('separator', '-')
+    capitalization = st.toggle('Capitalization')
+    vocabulary = words.words()  # Get the list of words from NLTK corpus
+    generator = MemorablePasswordGenerator(
+        no_of_words,
+        separator,
+        capitalization,
+        vocabulary
+    )
+    st.write(generator.generate())
