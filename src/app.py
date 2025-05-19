@@ -11,6 +11,15 @@ options = st.radio(
             options=['RandomPasswordGenerator', 'MemorablePasswordGenerator', 'PinCodeGenerator']
 )
 if options == 'PinCodeGenerator':
-    length = st.slider('length o the password', 0, 10, 4)
+    length = st.slider('length of the password', 0, 10, 4)
     generator = PinCodeGenerator(length)
     st.write(generator.generate())
+elif options == 'RandomPasswordGenerator':
+    length = st.slider('length o the password', 0, 10, 4)
+    include_numbers = st.toggle('include_numbers')
+    include_symbols = st.toggle('include_symbols')
+    if include_symbols:
+        include_symbols = st.text_input('include_symbols')
+    generator = RandomPasswordGenerator(length, include_numbers, include_symbols)
+    st.write(generator.generate())
+
