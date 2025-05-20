@@ -8,30 +8,32 @@ st.image('src/images/Password_logo.jpg', width=300)
 st.title(":zap: Password Generator Dashboard")
 
 options = st.radio(
-        'Password type:',
-            options=['RandomPasswordGenerator', 'MemorablePasswordGenerator', 'PinCodeGenerator']
-)
+                   ":lock: Password type:",
+                   options=['RandomPasswordGenerator', 'MemorablePasswordGenerator', 'PinCodeGenerator']
+                )
+
 if options == 'PinCodeGenerator':
-    length = st.slider('length of the password', 0, 10, 4)
+    length = st.slider("Length", min_value=2, max_value=10, value=4)
+
     generator = PinCodeGenerator(length)
 elif options == 'RandomPasswordGenerator':
-    length = st.slider('length o the password', 0, 10, 4)
-    include_numbers = st.toggle('include_numbers')
-    include_symbols = st.toggle('include_symbols')
-    if include_symbols:
-        include_symbols = st.text_input('include_symbols')
+    length = st.slider("Length:", min_value=5, max_value=50, value=8)
+    include_numbers = st.toggle('Include Numbers')
+    include_symbols = st.toggle('Include Symbols')
+
     generator = RandomPasswordGenerator(length, include_numbers, include_symbols)
 else:
-    no_of_words = st.slider('Number of Words', 0, 7, 5)
-    separator = st.text_input('separator', '-')
+    no_of_words = st.slider("Number of Words", min_value=2, max_value=10, value=5)
+    separator = st.text_input("Separator", value='-')
     capitalization = st.toggle('Capitalization')
-    vocabulary = words.words()  # Get the list of words from NLTK corpus
+
     generator = MemorablePasswordGenerator(
         no_of_words,
         separator,
         capitalization,
-        vocabulary
+        words.words()
     )
 
 password = generator.generate()
-st.write(f'The Password is: ```{password}``` ')
+st.write(":unlock: The Password is:")
+st.header(fr"``` {password} ```")
