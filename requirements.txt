@@ -1,0 +1,4 @@
+Python 3.8.16
+nltk==3.9.1
+streamlit==1.40.1
+
